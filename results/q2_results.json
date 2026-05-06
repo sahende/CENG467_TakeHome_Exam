@@ -1,0 +1,16 @@
+{
+    "crf": {
+        "model": "CRF (Classical)",
+        "model_type": "Classical ML",
+        "precision": 0.8139708629062383,
+        "recall": 0.771600566572238,
+        "f1": 0.7922195964370116
+    },
+    "bert_ner": {
+        "model": "BERT NER (bert-base-uncased)",
+        "model_type": "Transformer (Contextual)",
+        "precision": 0.8493174061433447,
+        "recall": 0.8815090329436769,
+        "f1": 0.8651138536415782
+    }
+}

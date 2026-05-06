@@ -1,0 +1,40 @@
+{
+    "seq2seq": {
+        "bleu": 5.439330544349823,
+        "bleu_signature": "BLEU = 5.44 23.5/6.2/3.3/1.8 (BP = 1.000 ratio = 1.000 hyp_len = 17 ref_len = 17)",
+        "bleu_precisions": [
+            23.529411764705884,
+            6.25,
+            3.3333333333333335,
+            1.7857142857142858
+        ],
+        "bleu_bp": 1.0,
+        "meteor": 0.2559886159070398,
+        "chrf": 24.091756203947856,
+        "chrf_char_order": 6,
+        "chrf_word_order": 2,
+        "chrf_beta": 2,
+        "bert_score_f1": 0.6630916595458984,
+        "bert_score_precision": 0.6480204463005066,
+        "bert_score_recall": 0.6798117756843567
+    },
+    "transformer": {
+        "bleu": 78.96895367562644,
+        "bleu_signature": "BLEU = 78.97 100.0/80.0/77.8/62.5 (BP = 1.000 ratio = 1.000 hyp_len = 11 ref_len = 11)",
+        "bleu_precisions": [
+            100.0,
+            80.0,
+            77.77777777777777,
+            62.5
+        ],
+        "bleu_bp": 1.0,
+        "meteor": 0.5469518373986363,
+        "chrf": 72.53010919558874,
+        "chrf_char_order": 6,
+        "chrf_word_order": 2,
+        "chrf_beta": 2,
+        "bert_score_f1": 0.8757688403129578,
+        "bert_score_precision": 0.8741488456726074,
+        "bert_score_recall": 0.8777211904525757
+    }
+}

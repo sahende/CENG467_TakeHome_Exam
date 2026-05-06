@@ -1,0 +1,42 @@
+{
+    "tfidf_logistic_regression": {
+        "model": "TF-IDF + logistic_regression",
+        "model_type": "TF-IDF (Sparse Representation)",
+        "stopword_removal": true,
+        "max_length": 512,
+        "normalize": true,
+        "lowercase": true,
+        "remove_punctuation": true,
+        "vocab_size": 5000,
+        "accuracy": 0.85,
+        "f1_macro": 0.8499273648445848,
+        "num_train_samples": 2000,
+        "num_test_samples": 500
+    },
+    "bilstm": {
+        "model": "BiLSTM",
+        "model_type": "BiLSTM (Dense Representation)",
+        "vocab_size": 8548,
+        "best_epoch": 4,
+        "best_val_accuracy": 0.7875,
+        "accuracy": 0.772,
+        "f1_macro": 0.7708118888317035
+    },
+    "bert": {
+        "model": "BERT (bert-base-uncased)",
+        "model_type": "BERT (Contextual Representation)",
+        "accuracy": 0.884,
+        "f1_macro": 0.8838494689117096,
+        "freeze_bert": true,
+        "unfreeze_last_n": 2,
+        "max_length": 256,
+        "batch_size": 16,
+        "epochs_trained": 5,
+        "best_val_accuracy": 0.8725,
+        "test_accuracy": 0.884,
+        "test_f1_macro": 0.8838494689117096,
+        "num_train_samples": 1600,
+        "num_val_samples": 400,
+        "num_test_samples": 500
+    }
+}

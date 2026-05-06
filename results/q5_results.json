@@ -1,0 +1,14 @@
+{
+    "ngram": {
+        "model": "3-gram (laplace)",
+        "test_perplexity": 3804.1858721023596,
+        "generated_sample": "Seed: The company announced\n  \u2192 the company announced\nSeed: In recent years , the\n  \u2192 in recent years , the following morning . webb planned to attack the union controlled every channel from savannah , georgia . this was due to the state and in 1923 . the underside is\nSeed: Scientists have discovered\n  \u2192 scientists have discovered",
+        "vocab_size": 4300
+    },
+    "gpt2": {
+        "model": "GPT-2 (gpt2) fine-tuned",
+        "test_perplexity": 4.265543461391918,
+        "generated_sample": "Seed: The company announced\n  \u2192 The company announced in March that it was closing its Chicago headquarters in Sanford , N.Y. , and it had hired a new full-time director . The move prompted an outcry from the public and prompted a review\nSeed: In recent years , the\n  \u2192 In recent years , the Arsenal women 's football association has been developing a team of women in intensive care , under the supervision of a football coach , to deliver the footballs ' standard in the Emirates . Arsenal are in need\nSeed: Scientists have discovered\n  \u2192 Scientists have discovered that the Blue Jackets 's maskray \u2013 named for its pinky-red eyes \u2013 lives in the Atlantic and can withstand up to 65 feet ( 21 meters ) of pressure during a single storm .",
+        "vocab_size": 50257
+    }
+}

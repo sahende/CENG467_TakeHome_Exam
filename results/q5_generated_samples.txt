@@ -1,0 +1,24 @@
+============================================================
+Q5 - LANGUAGE MODELING: GENERATED TEXT SAMPLES
+============================================================
+
+────────────────────────────────────────────────────────────
+Model: ngram
+────────────────────────────────────────────────────────────
+Seed: The company announced
+  → the company announced
+Seed: In recent years , the
+  → in recent years , the following morning . webb planned to attack the union controlled every channel from savannah , georgia . this was due to the state and in 1923 . the underside is
+Seed: Scientists have discovered
+  → scientists have discovered
+
+────────────────────────────────────────────────────────────
+Model: gpt2
+────────────────────────────────────────────────────────────
+Seed: The company announced
+  → The company announced in March that it was closing its Chicago headquarters in Sanford , N.Y. , and it had hired a new full-time director . The move prompted an outcry from the public and prompted a review
+Seed: In recent years , the
+  → In recent years , the Arsenal women 's football association has been developing a team of women in intensive care , under the supervision of a football coach , to deliver the footballs ' standard in the Emirates . Arsenal are in need
+Seed: Scientists have discovered
+  → Scientists have discovered that the Blue Jackets 's maskray – named for its pinky-red eyes – lives in the Atlantic and can withstand up to 65 feet ( 21 meters ) of pressure during a single storm .
+

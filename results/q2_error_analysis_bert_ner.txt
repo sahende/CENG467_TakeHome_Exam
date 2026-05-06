@@ -1,0 +1,44 @@
+============================================================
+NER ERROR ANALYSIS REPORT
+============================================================
+
+────────────────────────────────────────
+1. BOUNDARY ERROR ANALYSIS
+────────────────────────────────────────
+  Total true entities:    5646
+  Total predicted entities: 5648
+
+  ✓ Exact matches:          4936 (87.4%)
+  ⚠ Right type, wrong span: 182 (3.2%)
+  ⚠ Partial matches (wrong type): 369
+  ✗ Missed entities:        209 (3.7%)
+  ✗ Extra (hallucinated):   161
+
+  Boundary Error Examples:
+    1. True: ORG[0:2] → Pred: ORG[0:1]
+    2. True: MISC[6:9] → Pred: MISC[7:9]
+    3. True: PER[2:4] → Pred: PER[3:4]
+
+────────────────────────────────────────
+2. ENTITY TYPE CONFUSION MATRIX
+────────────────────────────────────────
+   True\Pred      PER      ORG      LOC     MISC
+  ──────────────────────────────────────────
+         PER 1497 ✓    28 ✗     9 ✗     1 ✗ 
+         ORG   17 ✗  1409 ✓    31 ✗    19 ✗ 
+         LOC    1 ✗    65 ✗  1506 ✓    18 ✗ 
+        MISC    2 ✗    32 ✗    20 ✗   524 ✓ 
+
+────────────────────────────────────────
+3. PER-ENTITY PERFORMANCE
+────────────────────────────────────────
+              precision    recall  f1-score   support
+
+         LOC       0.88      0.90      0.89      1667
+        MISC       0.72      0.75      0.73       702
+         ORG       0.79      0.85      0.82      1661
+         PER       0.94      0.95      0.94      1616
+
+   micro avg       0.85      0.88      0.87      5646
+   macro avg       0.83      0.86      0.85      5646
+weighted avg       0.85      0.88      0.87      5646

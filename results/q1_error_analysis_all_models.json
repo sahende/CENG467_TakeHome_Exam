@@ -1,0 +1,83 @@
+{
+    "tfidf_logistic_regression": {
+        "model_name": "tfidf_logistic_regression",
+        "total_samples": 500,
+        "total_errors": 75,
+        "error_rate": 0.15,
+        "total_correct": 425,
+        "accuracy": 0.85,
+        "confusion_matrix": [
+            [
+                207,
+                47
+            ],
+            [
+                28,
+                218
+            ]
+        ],
+        "false_positives": 47,
+        "false_negatives": 28,
+        "fp_rate": 0.18503937007874016,
+        "fn_rate": 0.11382113821138211,
+        "text_length_analysis": {
+            "avg_length_all": 198.686,
+            "avg_length_errors": 214.25333333333333,
+            "avg_length_correct": 195.93882352941176
+        }
+    },
+    "bilstm": {
+        "model_name": "bilstm",
+        "total_samples": 500,
+        "total_errors": 114,
+        "error_rate": 0.228,
+        "total_correct": 386,
+        "accuracy": 0.772,
+        "confusion_matrix": [
+            [
+                211,
+                43
+            ],
+            [
+                71,
+                175
+            ]
+        ],
+        "false_positives": 43,
+        "false_negatives": 71,
+        "fp_rate": 0.16929133858267717,
+        "fn_rate": 0.2886178861788618,
+        "text_length_analysis": {
+            "avg_length_all": 198.686,
+            "avg_length_errors": 217.66666666666666,
+            "avg_length_correct": 193.08031088082902
+        }
+    },
+    "bert": {
+        "model_name": "bert",
+        "total_samples": 500,
+        "total_errors": 58,
+        "error_rate": 0.116,
+        "total_correct": 442,
+        "accuracy": 0.884,
+        "confusion_matrix": [
+            [
+                230,
+                24
+            ],
+            [
+                34,
+                212
+            ]
+        ],
+        "false_positives": 24,
+        "false_negatives": 34,
+        "fp_rate": 0.09448818897637795,
+        "fn_rate": 0.13821138211382114,
+        "text_length_analysis": {
+            "avg_length_all": 198.686,
+            "avg_length_errors": 217.74137931034483,
+            "avg_length_correct": 196.18552036199094
+        }
+    }
+}

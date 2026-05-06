@@ -1,0 +1,146 @@
+{
+    "crf": {
+        "metrics": {
+            "precision": 0.8139708629062383,
+            "recall": 0.771600566572238,
+            "f1": 0.7922195964370116
+        },
+        "boundary": {
+            "exact_matches": 4358,
+            "right_type_wrong_boundary": 147,
+            "partial_matches": 698,
+            "missed_entities": 470,
+            "extra_entities": 151,
+            "total_true_entities": 5648,
+            "total_pred_entities": 5354,
+            "boundary_error_examples": [
+                {
+                    "true": "PER[1:3]",
+                    "pred": "PER[0:3]",
+                    "error": "boundary"
+                },
+                {
+                    "true": "MISC[6:9]",
+                    "pred": "MISC[7:9]",
+                    "error": "boundary"
+                },
+                {
+                    "true": "PER[1:3]",
+                    "pred": "PER[0:3]",
+                    "error": "boundary"
+                },
+                {
+                    "true": "PER[1:3]",
+                    "pred": "PER[1:2]",
+                    "error": "boundary"
+                },
+                {
+                    "true": "PER[0:2]",
+                    "pred": "PER[1:2]",
+                    "error": "boundary"
+                }
+            ],
+            "exact_match_rate": 0.771600566572238,
+            "boundary_error_rate": 0.026026912181303118,
+            "miss_rate": 0.08321529745042493
+        },
+        "confusion": {
+            "PER": {
+                "PER": 1355,
+                "ORG": 60,
+                "LOC": 43,
+                "MISC": 10
+            },
+            "ORG": {
+                "PER": 136,
+                "ORG": 1110,
+                "LOC": 111,
+                "MISC": 32
+            },
+            "LOC": {
+                "PER": 41,
+                "ORG": 69,
+                "LOC": 1375,
+                "MISC": 15
+            },
+            "MISC": {
+                "PER": 23,
+                "ORG": 21,
+                "LOC": 15,
+                "MISC": 518
+            }
+        }
+    },
+    "bert_ner": {
+        "metrics": {
+            "precision": 0.8493174061433447,
+            "recall": 0.8815090329436769,
+            "f1": 0.8651138536415782
+        },
+        "boundary": {
+            "exact_matches": 4936,
+            "right_type_wrong_boundary": 182,
+            "partial_matches": 369,
+            "missed_entities": 209,
+            "extra_entities": 161,
+            "total_true_entities": 5646,
+            "total_pred_entities": 5648,
+            "boundary_error_examples": [
+                {
+                    "true": "ORG[0:2]",
+                    "pred": "ORG[0:1]",
+                    "error": "boundary"
+                },
+                {
+                    "true": "MISC[6:9]",
+                    "pred": "MISC[7:9]",
+                    "error": "boundary"
+                },
+                {
+                    "true": "PER[2:4]",
+                    "pred": "PER[3:4]",
+                    "error": "boundary"
+                },
+                {
+                    "true": "PER[2:4]",
+                    "pred": "PER[2:3]",
+                    "error": "boundary"
+                },
+                {
+                    "true": "PER[0:2]",
+                    "pred": "PER[1:2]",
+                    "error": "boundary"
+                }
+            ],
+            "exact_match_rate": 0.8742472546935883,
+            "boundary_error_rate": 0.032235210768685796,
+            "miss_rate": 0.03701735742118314
+        },
+        "confusion": {
+            "PER": {
+                "PER": 1497,
+                "ORG": 28,
+                "LOC": 9,
+                "MISC": 1
+            },
+            "ORG": {
+                "PER": 17,
+                "ORG": 1409,
+                "LOC": 31,
+                "MISC": 19
+            },
+            "LOC": {
+                "PER": 1,
+                "ORG": 65,
+                "LOC": 1506,
+                "MISC": 18
+            },
+            "MISC": {
+                "PER": 2,
+                "ORG": 32,
+                "LOC": 20,
+                "MISC": 524
+            }
+        }
+    }
+}
