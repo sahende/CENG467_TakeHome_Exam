@@ -261,35 +261,22 @@ def qualitative_analysis(articles, references, extractive, abstractive, n_exampl
         print(f"\n ABSTRACTIVE - BART ({len(abstractive[idx].split())} words):")
         print(f"   {abstractive[idx][:250]}")
         
-        # ========== ANALYSIS ==========
         print(f"\n ANALYSIS:")
         
-        # 1. Fluency
-        ext_sentences = extractive[idx].split('.')
-        abs_sentences = abstractive[idx].split('.')
-        
-        # Extractive:  direct copy of sentences, no conjunctions
         ext_fluency = "Low - Sentences copied verbatim, lack cohesion, may contain artifacts (e.g., 'CNN', 'NEW:')"
-        
-        # Abstractive: fluent paragraph
         abs_fluency = "High - Generates coherent, well-connected sentences in natural language"
         
         print(f"    FLUENCY:")
         print(f"      Extractive:  {ext_fluency}")
         print(f"      Abstractive: {abs_fluency}")
         
-        # 2. Factual Consistency
-        # Extractive: word for word copy → consistent
         ext_consistency = "High - Verbatim copy from source, no hallucination risk"
-        
-        # Abstractive: Manipulated → risk of hallucinations
         abs_consistency = "Medium - May paraphrase incorrectly or merge facts from different parts"
         
         print(f"    FACTUAL CONSISTENCY:")
         print(f"      Extractive:  {ext_consistency}")
         print(f"      Abstractive: {abs_consistency}")
         
-        # 3. Information Coverage
         ref_words = set(references[idx].lower().split())
         ext_words = set(extractive[idx].lower().split())
         abs_words = set(abstractive[idx].lower().split())
@@ -301,7 +288,6 @@ def qualitative_analysis(articles, references, extractive, abstractive, n_exampl
         print(f"      Extractive:  {ext_overlap:.1%} of reference words covered")
         print(f"      Abstractive: {abs_overlap:.1%} of reference words covered")
         
-        # 4. Length comparison
         ref_len = len(references[idx].split())
         ext_len = len(extractive[idx].split())
         abs_len = len(abstractive[idx].split())
@@ -311,7 +297,6 @@ def qualitative_analysis(articles, references, extractive, abstractive, n_exampl
         print(f"      Extractive: {ext_len} words ({ext_len/ref_len:.1%} of ref)")
         print(f"      Abstractive: {abs_len} words ({abs_len/ref_len:.1%} of ref)")
     
-    # ========== TRADE-OFF SUMMARY ==========
     print(f"\n{'='*70}")
     print("TRADE-OFF SUMMARY: EXTRACTIVE vs ABSTRACTIVE")
     print(f"{'='*70}")
@@ -325,6 +310,21 @@ def qualitative_analysis(articles, references, extractive, abstractive, n_exampl
     {'ROUGE-1':<25} {'0.27':<30} {'0.33':<30}
     {'Use Case':<25} {'Quick drafts, fact-critical apps':<30} {'Final summaries, conversational AI':<30}
     """)
+
+    # Save examples for analysis.py
+    examples_data = []
+    for idx in indices[:n_examples]:
+        examples_data.append({
+            'source': articles[idx][:500],
+            'reference': references[idx],
+            'extractive': extractive[idx],
+            'abstractive': abstractive[idx]
+        })
+    
+    examples_path = os.path.join(RESULTS_DIR, 'q3_qualitative_examples.json')
+    with open(examples_path, 'w', encoding='utf-8') as f:
+        json.dump(examples_data, f, indent=4)
+    print(f"✓ Qualitative examples saved to {examples_path}")
 
 def plot_metrics_comparison(ext_metrics, abs_metrics, save_path):
     import matplotlib.pyplot as plt
