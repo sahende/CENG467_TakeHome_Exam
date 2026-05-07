@@ -167,17 +167,38 @@ class SummaryAnalyzer:
 
 
 if __name__ == "__main__":
-    # Example usage
-    analyzer = SummaryAnalyzer()
+    """
+    Run qualitative analysis on saved Q3 results.
+    """
+    import json
     
-    # Add examples
-    analyzer.add_example(
-        source="The quick brown fox jumps over the lazy dog. "
-               "The dog was sleeping in the sun. "
-               "Suddenly, the fox appeared and scared the dog.",
-        reference="A fox jumps over a sleeping dog.",
-        extractive_summary="The quick brown fox jumps over the lazy dog.",
-        abstractive_summary="A fox startled a sleeping dog by jumping over it."
-    )
+    results_path = os.path.join(RESULTS_DIR, 'q3_results.json')
     
-    print(analyzer.generate_comparison_report())
+    if os.path.exists(results_path):
+        print("Loading Q3 results for analysis...")
+        with open(results_path, 'r') as f:
+            results = json.load(f)
+        
+        analyzer = SummaryAnalyzer()
+        
+        # Bu kısım için train.py'den gelen örnekler lazım
+        # Onları da q3_qualitative_examples.json olarak kaydedelim
+        examples_path = os.path.join(RESULTS_DIR, 'q3_qualitative_examples.json')
+        if os.path.exists(examples_path):
+            with open(examples_path, 'r') as f:
+                examples = json.load(f)
+            
+            for ex in examples:
+                analyzer.add_example(
+                    source=ex['source'],
+                    reference=ex['reference'],
+                    extractive_summary=ex['extractive'],
+                    abstractive_summary=ex['abstractive']
+                )
+            
+            print(analyzer.generate_comparison_report())
+            analyzer.save_report(os.path.join(RESULTS_DIR, 'q3_qualitative_analysis.txt'))
+        else:
+            print("No qualitative examples found. Run train.py first.")
+    else:
+        print("No Q3 results found. Run train.py first.")

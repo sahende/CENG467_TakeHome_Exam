@@ -250,19 +250,19 @@ def qualitative_analysis(articles, references, extractive, abstractive, n_exampl
         print(f"EXAMPLE {i} (Article {idx}, {len(articles[idx].split())} words)")
         print(f"{'─'*60}")
         
-        print(f"\n📄 ORIGINAL (first 200 chars):")
+        print(f"\n ORIGINAL (first 200 chars):")
         print(f"   {articles[idx][:200]}...")
-        print(f"\n✅ REFERENCE ({len(references[idx].split())} words):")
+        print(f"\n REFERENCE ({len(references[idx].split())} words):")
         print(f"   {references[idx][:250]}")
         
-        print(f"\n📝 EXTRACTIVE - TextRank ({len(extractive[idx].split())} words):")
+        print(f"\n EXTRACTIVE - TextRank ({len(extractive[idx].split())} words):")
         print(f"   {extractive[idx][:250]}")
         
-        print(f"\n🤖 ABSTRACTIVE - BART ({len(abstractive[idx].split())} words):")
+        print(f"\n ABSTRACTIVE - BART ({len(abstractive[idx].split())} words):")
         print(f"   {abstractive[idx][:250]}")
         
         # ========== ANALYSIS ==========
-        print(f"\n📊 ANALYSIS:")
+        print(f"\n ANALYSIS:")
         
         # 1. Fluency
         ext_sentences = extractive[idx].split('.')
@@ -274,7 +274,7 @@ def qualitative_analysis(articles, references, extractive, abstractive, n_exampl
         # Abstractive: fluent paragraph
         abs_fluency = "High - Generates coherent, well-connected sentences in natural language"
         
-        print(f"   🗣️ FLUENCY:")
+        print(f"    FLUENCY:")
         print(f"      Extractive:  {ext_fluency}")
         print(f"      Abstractive: {abs_fluency}")
         
@@ -285,7 +285,7 @@ def qualitative_analysis(articles, references, extractive, abstractive, n_exampl
         # Abstractive: Manipulated → risk of hallucinations
         abs_consistency = "Medium - May paraphrase incorrectly or merge facts from different parts"
         
-        print(f"   📋 FACTUAL CONSISTENCY:")
+        print(f"    FACTUAL CONSISTENCY:")
         print(f"      Extractive:  {ext_consistency}")
         print(f"      Abstractive: {abs_consistency}")
         
@@ -297,7 +297,7 @@ def qualitative_analysis(articles, references, extractive, abstractive, n_exampl
         ext_overlap = len(ref_words & ext_words) / len(ref_words) if ref_words else 0
         abs_overlap = len(ref_words & abs_words) / len(ref_words) if ref_words else 0
         
-        print(f"   📏 INFORMATION COVERAGE (word overlap with reference):")
+        print(f"    INFORMATION COVERAGE (word overlap with reference):")
         print(f"      Extractive:  {ext_overlap:.1%} of reference words covered")
         print(f"      Abstractive: {abs_overlap:.1%} of reference words covered")
         
@@ -306,7 +306,7 @@ def qualitative_analysis(articles, references, extractive, abstractive, n_exampl
         ext_len = len(extractive[idx].split())
         abs_len = len(abstractive[idx].split())
         
-        print(f"   📏 LENGTH:")
+        print(f"    LENGTH:")
         print(f"      Reference:  {ref_len} words")
         print(f"      Extractive: {ext_len} words ({ext_len/ref_len:.1%} of ref)")
         print(f"      Abstractive: {abs_len} words ({abs_len/ref_len:.1%} of ref)")

@@ -252,36 +252,36 @@ class ErrorAnalyzer:
         print(f"ERROR ANALYSIS REPORT: {self.model_name}")
         print(f"{'='*60}")
         
-        print(f"\n📊 OVERVIEW:")
+        print(f"\n OVERVIEW:")
         print(f"  Total Samples: {analysis['total_samples']}")
         print(f"  Correct: {analysis['total_correct']} ({analysis['accuracy']:.2%})")
         print(f"  Errors: {analysis['total_errors']} ({analysis['error_rate']:.2%})")
         
         if 'false_positives' in analysis:
-            print(f"\n📋 ERROR BREAKDOWN:")
+            print(f"\n ERROR BREAKDOWN:")
             print(f"  False Positives (0→1): {analysis['false_positives']}")
             print(f"  False Negatives (1→0): {analysis['false_negatives']}")
         
         tla = analysis.get('text_length_analysis', {})
         if tla:
-            print(f"\n📏 TEXT LENGTH ANALYSIS:")
+            print(f"\n TEXT LENGTH ANALYSIS:")
             print(f"  Avg length (all): {tla.get('avg_length_all', 0):.1f} words")
             print(f"  Avg length (errors): {tla.get('avg_length_errors', 0):.1f} words")
             print(f"  Avg length (correct): {tla.get('avg_length_correct', 0):.1f} words")
         
         if categories:
-            print(f"\n🔍 ERROR CATEGORIES:")
+            print(f"\n ERROR CATEGORIES:")
             for category, indices in categories.items():
                 if indices:
                     print(f"  {category}: {len(indices)} examples")
         
         if content_patterns:
-            print(f"\n📝 CONTENT PATTERNS IN ERRORS:")
+            print(f"\n CONTENT PATTERNS IN ERRORS:")
             for pattern, indices in content_patterns.items():
                 if indices:
                     print(f"  {pattern}: {len(indices)} examples")
         
-        print(f"\n📝 TOP 5 MISCLASSIFIED EXAMPLES:")
+        print(f"\n TOP 5 MISCLASSIFIED EXAMPLES:")
         misclassified = self.get_misclassified_examples(5)
         if len(misclassified) > 0:
             for i, (idx, row) in enumerate(misclassified.iterrows(), 1):
@@ -320,18 +320,18 @@ def find_common_misclassifications(model_outputs: Dict,
             all_misclassified &= set(np.where(misclassified)[0])
     
     if not all_misclassified:
-        print("✅ No examples misclassified by all models!")
+        print(" No examples misclassified by all models!")
         return []
     
     common_indices = sorted(list(all_misclassified))
-    print(f"\n📌 {len(common_indices)} examples misclassified by ALL models")
+    print(f"\n {len(common_indices)} examples misclassified by ALL models")
     print(f"   ({len(common_indices)/len(true_labels)*100:.1f}% of test set)\n")
     
     # PATTERN 1: Text Length
     common_lengths = [len(texts[i].split()) for i in common_indices]
     all_lengths = [len(t.split()) for t in texts]
     
-    print("📏 LENGTH PATTERN:")
+    print(" LENGTH PATTERN:")
     print(f"   Common errors avg length: {np.mean(common_lengths):.0f} words")
     print(f"   Overall avg length:       {np.mean(all_lengths):.0f} words")
     
@@ -348,7 +348,7 @@ def find_common_misclassifications(model_outputs: Dict,
     neg_count = label_counts[0] if len(label_counts) > 0 else 0
     pos_count = label_counts[1] if len(label_counts) > 1 else 0
     
-    print(f"\n🏷️  LABEL PATTERN:")
+    print(f"\n  LABEL PATTERN:")
     print(f"   Negative examples: {neg_count}")
     print(f"   Positive examples: {pos_count}")
     
@@ -372,7 +372,7 @@ def find_common_misclassifications(model_outputs: Dict,
                 word_counts[word] += 1
     
     if word_counts:
-        print(f"\n📝 KEYWORD PATTERN (frequent in common errors):")
+        print(f"\n KEYWORD PATTERN (frequent in common errors):")
         for word, count in word_counts.most_common(8):
             bar = '█' * min(count, 20)
             print(f"   '{word}': {count:>3} {bar}")
@@ -452,13 +452,13 @@ def analyze_all_models(model_outputs: Dict,
         
         analyzer.print_report()
         
-        cm_path = os.path.join(save_dir, f'confusion_matrix_{model_name}.png')
+        cm_path = os.path.join(save_dir, f'q1_confusion_matrix_{model_name}.png')
         analyzer.plot_confusion_matrix(save_path=cm_path)
         
-        dist_path = os.path.join(save_dir, f'error_distribution_{model_name}.png')
+        dist_path = os.path.join(save_dir, f'q1_error_distribution_{model_name}.png')
         analyzer.plot_error_distribution(save_path=dist_path)
         
-        csv_path = os.path.join(save_dir, f'misclassified_{model_name}.csv')
+        csv_path = os.path.join(save_dir, f'q1_misclassified_{model_name}.csv')
         analyzer.export_misclassified(csv_path, n_examples=10)
         
         all_analyses[model_name] = analyzer.analyze_error_patterns()
@@ -476,7 +476,7 @@ def analyze_all_models(model_outputs: Dict,
     
     with open(combined_path, 'w') as f:
         json.dump(convert(all_analyses), f, indent=4)
-    print(f"\n✓ Combined analysis saved to {combined_path}")
+    print(f"\n Combined analysis saved to {combined_path}")
     
     # Print cross-model comparison
     print_cross_model_comparison(all_analyses)
@@ -485,7 +485,7 @@ def analyze_all_models(model_outputs: Dict,
     common_errors = find_common_misclassifications(model_outputs, texts, true_labels, n_examples=5)
     
     if common_errors:
-        common_path = os.path.join(save_dir, 'common_misclassified.csv')
+        common_path = os.path.join(save_dir, 'q1_common_misclassified.csv')
         common_df = pd.DataFrame({
             'index': common_errors,
             'text': [texts[i][:300] for i in common_errors],
@@ -493,7 +493,7 @@ def analyze_all_models(model_outputs: Dict,
             'length': [len(texts[i].split()) for i in common_errors]
         })
         common_df.to_csv(common_path, index=False)
-        print(f"✓ Common errors saved to {common_path}")
+        print(f" Common errors saved to {common_path}")
     
     return all_analyses
 
@@ -531,7 +531,7 @@ def print_cross_model_comparison(all_analyses: Dict):
     
     best_model = max(all_analyses.items(), key=lambda x: x[1]['accuracy'])
     print(f"\n{'='*70}")
-    print(f"🏆 Best Performing Model: {best_model[0]} "
+    print(f" Best Performing Model: {best_model[0]} "
           f"(Accuracy: {best_model[1]['accuracy']:.4f})")
     print(f"{'='*70}")
 
@@ -589,7 +589,7 @@ def analyze_preprocessing_impact(preprocessing_results_path: str):
     best = max(pp_results, key=lambda x: x['f1_macro'])
     worst = min(pp_results, key=lambda x: x['f1_macro'])
     
-    print(f"\n📊 PREPROCESSING FINDINGS:")
+    print(f"\n PREPROCESSING FINDINGS:")
     print(f"  Best: {best['configuration']} (Acc={best['accuracy']:.4f}, F1={best['f1_macro']:.4f})")
     print(f"  Worst: {worst['configuration']} (Acc={worst['accuracy']:.4f}, F1={worst['f1_macro']:.4f})")
     print(f"  Impact range: {best['f1_macro'] - worst['f1_macro']:.4f} F1 points")

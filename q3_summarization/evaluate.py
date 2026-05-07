@@ -13,7 +13,7 @@ if not hasattr(transformers.BertTokenizer, 'build_inputs_with_special_tokens'):
     
     transformers.BertTokenizer.build_inputs_with_special_tokens = _build_inputs_with_special_tokens
     transformers.BertTokenizerFast.build_inputs_with_special_tokens = _build_inputs_with_special_tokens
-    print("✓ Patched BertTokenizer for bert-score compatibility")
+    print(" Patched BertTokenizer for bert-score compatibility")
 import torch
 from rouge_score import rouge_scorer
 from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction

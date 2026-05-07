@@ -106,7 +106,7 @@ class MTExperiment:
         save_path = os.path.join(MODELS_DIR, 't5_en_de_finetuned')
         model.save_pretrained(save_path)
         tokenizer.save_pretrained(save_path)
-        print(f"\n✓ Fine-tuned T5 saved to {save_path}")
+        print(f"\n Fine-tuned T5 saved to {save_path}")
         
         return model, tokenizer
     
@@ -241,7 +241,7 @@ class MTExperiment:
         if not os.path.exists(finetuned_path):
             self.fine_tune_t5(epochs=3)
         else:
-            print(f"✓ Fine-tuned T5 already exists at {finetuned_path}")
+            print(f" Fine-tuned T5 already exists at {finetuned_path}")
         
         # 1. Train Seq2Seq
         seq2seq_model, test_dataset = self.train_seq2seq(epochs=10)
@@ -284,7 +284,7 @@ class MTExperiment:
         results_path = os.path.join(RESULTS_DIR, 'q4_results.json')
         with open(results_path, 'w') as f:
             json.dump(convert(results), f, indent=4)
-        print(f"\n✓ Results saved to {results_path}")
+        print(f"\n Results saved to {results_path}")
         print(f"\n{'='*60}")
         print("Q4 Complete!")
         print(f"{'='*60}")

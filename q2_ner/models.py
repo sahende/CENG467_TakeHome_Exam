@@ -67,7 +67,7 @@ class NERBERTModel:
         if freeze_embeddings:
             for param in self.model.bert.embeddings.parameters():
                 param.requires_grad = False
-            print("✓ Frozen: Embeddings layer")
+            print(" Frozen: Embeddings layer")
         
         # 2. Freeze encoder layers selectively
         total_layers = len(self.model.bert.encoder.layer)
@@ -87,10 +87,10 @@ class NERBERTModel:
         if hasattr(self.model.bert, 'pooler') and self.model.bert.pooler is not None:
             for param in self.model.bert.pooler.parameters():
                 param.requires_grad = False
-            print("✓ Frozen: Pooler layer")
+            print(" Frozen: Pooler layer")
         
         # 4. Classifier remains trainable
-        print("✓ Trainable: Token classification head")
+        print(" Trainable: Token classification head")
     
     def _print_trainable_params(self):
         """Print parameter summary."""

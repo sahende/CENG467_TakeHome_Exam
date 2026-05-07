@@ -25,7 +25,7 @@ for resource in NLTK_RESOURCES:
     except LookupError:
         print(f"Downloading NLTK resource: {resource}...")
         nltk.download(resource, quiet=True)
-        print(f"  ✓ {resource} downloaded successfully")
+        print(f"   {resource} downloaded successfully")
 
 print("NLTK resources ready.")
 

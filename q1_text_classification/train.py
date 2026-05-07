@@ -185,14 +185,14 @@ class TextClassificationExperiment:
             
             self.preprocessing_results.append(result)
             
-            print(f"  ✓ Accuracy: {accuracy:.4f} | Macro F1: {f1_macro:.4f} | "
+            print(f"   Accuracy: {accuracy:.4f} | Macro F1: {f1_macro:.4f} | "
                   f"Vocab Size: {result['vocab_size']}")
         
         # Save preprocessing analysis results
         pp_results_path = os.path.join(RESULTS_DIR, 'q1_preprocessing_analysis.json')
         with open(pp_results_path, 'w') as f:
             json.dump(self.preprocessing_results, f, indent=4)
-        print(f"\n✓ Preprocessing analysis saved to {pp_results_path}")
+        print(f"\n Preprocessing analysis saved to {pp_results_path}")
         
         # Print summary
         self._print_preprocessing_summary()
@@ -804,7 +804,7 @@ class TextClassificationExperiment:
                 print(f"{model_name:<30} {metrics['accuracy']:<12.4f} "
                       f"{metrics['f1_macro']:<12.4f} {model_type:<25}")
         
-        print(f"\n► All results saved to {os.path.join(RESULTS_DIR, 'q1_results.json')}")
+        print(f"\n All results saved to {os.path.join(RESULTS_DIR, 'q1_results.json')}")
     
     def save_results(self):
         """Save all results to JSON file."""
@@ -833,7 +833,7 @@ class TextClassificationExperiment:
         
         with open(results_path, 'w') as f:
             json.dump(serializable_results, f, indent=4)
-        print(f"\n✓ Model results saved to {results_path}")
+        print(f"\n Model results saved to {results_path}")
         
         # Save predictions for error analysis
         predictions_path = os.path.join(RESULTS_DIR, 'q1_predictions.json')
@@ -870,7 +870,7 @@ class TextClassificationExperiment:
         
         with open(predictions_path, 'w') as f:
             json.dump(preds_serializable, f, indent=4)
-        print(f"✓ Predictions saved to {predictions_path}")
+        print(f" Predictions saved to {predictions_path}")
     
     def get_predictions_for_analysis(self) -> Dict:
         """
@@ -891,8 +891,8 @@ def main():
     # Load full dataset
     dataset = load_dataset("imdb")
     
-    # CRITICAL: IMDB is ordered (all negatives first, then positives)
-    # MUST shuffle before selecting subset to get balanced classes
+    # IMDB is ordered (all negatives first, then positives)
+    # must shuffle before selecting subset to get balanced classes
     train_data = dataset['train'].shuffle(seed=SEED).select(range(2000))
     test_data = dataset['test'].shuffle(seed=SEED).select(range(500))
     

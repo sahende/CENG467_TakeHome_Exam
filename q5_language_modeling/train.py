@@ -50,18 +50,55 @@ class LMExperiment:
         
         test_ppl = model.perplexity(test_tokens)
         
+        # ================================================================
+        # SEED SELECTION FOR TEXT GENERATION
+        # ================================================================
+        # We use a mixed selection strategy:
+        # - 3 generic seeds: hand-picked to demonstrate model capability on common patterns
+        # - 3 test-set seeds: randomly sampled to evaluate performance on real Wikipedia text
+        # This provides a balanced evaluation of both idealized and realistic generation quality.
+
+        import random
+        random.seed(SEED)  # Reproducible selection across runs
+
+        # Generic seeds - common English patterns that any good LM should continue fluently
         seeds = [
-            "The company announced",
-            "In recent years , the",
-            "Scientists have discovered"
+            "The company announced",         # Business/news pattern
+            "In recent years , the",         # Temporal/general pattern
+            "Scientists have discovered"     # Scientific pattern
         ]
+        references = [
+            "[Generic prompt - no reference]",
+            "[Generic prompt - no reference]",
+            "[Generic prompt - no reference]"
+        ]
+
+        # Test-set seeds - drawn from WikiText-2 to assess real-world performance
+        test_sentences = []
+        for text in self.test_texts:
+            sentences = text.split('.')
+            for sent in sentences:
+                words = sent.strip().split()
+                if len(words) >= 5:  # Minimum 5 words for meaningful context
+                    test_sentences.append(words)
+
+        # Randomly sample 3 sentences from test set
+        selected = random.sample(test_sentences, min(3, len(test_sentences)))
+
+        for words in selected:
+            seed = ' '.join(words[:3])           # First 3 words as seed
+            reference = ' '.join(words)          # Full sentence as reference
+            seeds.append(seed)
+            references.append(reference)
+
+        print(f"  Seeds for generation: {seeds}")
         
         generated_samples = []
-        for seed_text in seeds:
+        for i, seed_text in enumerate(seeds):
             seed_tokens = seed_text.lower().split()
             sample = model.generate(seed_tokens, max_length=30)
             generated = ' '.join(sample)
-            generated_samples.append(f"Seed: {seed_text}\n  → {generated}")
+            generated_samples.append(f"Seed: {seed_text}\n  Reference: {references[i][:100]}...\n  → {generated}")
         
         generated_text = "\n".join(generated_samples)
         
@@ -84,13 +121,13 @@ class LMExperiment:
         return metrics
     
     # ================================================================
-    # GPT-2 EXPERIMENT (with optional fine-tuning)
+    # GPT-2 EXPERIMENT 
     # ================================================================
     def run_gpt2_experiment(self, model_name: str = "gpt2", 
                             fine_tune: bool = True,
                             fine_tune_epochs: int = 3,
                             fine_tune_samples: int = 200) -> Dict:
-        """Run GPT-2 experiment with optional fine-tuning."""
+        """Run GPT-2 experiment."""
         print(f"\n{'='*50}")
         print(f"Running GPT-2 ({model_name})")
         if fine_tune:
@@ -144,7 +181,7 @@ class LMExperiment:
             save_path = os.path.join(MODELS_DIR, 'gpt2_wikitext')
             model.model.save_pretrained(save_path)
             model.tokenizer.save_pretrained(save_path)
-            print(f"  ✓ Fine-tuned model saved to {save_path}")
+            print(f"   Fine-tuned model saved to {save_path}")
             model.model.eval()
         
         # Perplexity
@@ -152,17 +189,54 @@ class LMExperiment:
         print(f"  Calculating perplexity on {len(test_subset)} samples...")
         test_ppl = model.perplexity(test_subset)
         
-        # Generate samples
+        
+        # ================================================================
+        # SEED SELECTION FOR TEXT GENERATION
+        # ================================================================
+        # We use a mixed selection strategy:
+        # - 3 generic seeds: hand-picked to demonstrate model capability on common patterns
+        # - 3 test-set seeds: randomly sampled to evaluate performance on real Wikipedia text
+        # This provides a balanced evaluation of both idealized and realistic generation quality.
+
+        import random
+        random.seed(SEED)  # Reproducible selection across runs
+
+        # Generic seeds - common English patterns that any good LM should continue fluently
         seeds = [
-            "The company announced",
-            "In recent years , the",
-            "Scientists have discovered"
+            "The company announced",         # Business/news pattern
+            "In recent years , the",         # Temporal/general pattern
+            "Scientists have discovered"     # Scientific pattern
         ]
+        references = [
+            "[Generic prompt - no reference]",
+            "[Generic prompt - no reference]",
+            "[Generic prompt - no reference]"
+        ]
+
+        # Test-set seeds - drawn from WikiText-2 to assess real-world performance
+        test_sentences = []
+        for text in self.test_texts:
+            sentences = text.split('.')
+            for sent in sentences:
+                words = sent.strip().split()
+                if len(words) >= 5:  # Minimum 5 words for meaningful context
+                    test_sentences.append(words)
+
+        # Randomly sample 3 sentences from test set
+        selected = random.sample(test_sentences, min(3, len(test_sentences)))
+
+        for words in selected:
+            seed = ' '.join(words[:3])           # First 3 words as seed
+            reference = ' '.join(words)          # Full sentence as reference
+            seeds.append(seed)
+            references.append(reference)
+
+        print(f"  Seeds for generation: {seeds}")
         
         generated_samples = []
-        for seed in seeds:
+        for i, seed in enumerate(seeds):
             gen = model.generate(seed, max_length=40, temperature=0.8)
-            generated_samples.append(f"Seed: {seed}\n  → {gen}")
+            generated_samples.append(f"Seed: {seed}\n  Reference: {references[i][:100]}...\n  → {gen}")
         
         generated_text = "\n".join(generated_samples)
         
@@ -204,9 +278,9 @@ class LMExperiment:
         valid = {k: v for k, v in self.results.items() if v['test_perplexity'] < 1e6}
         if valid:
             best = min(valid.values(), key=lambda x: x['test_perplexity'])
-            print(f"\n🏆 Best Perplexity: {best['model']} (PPL={best['test_perplexity']:.2f})")
+            print(f"\n Best Perplexity: {best['model']} (PPL={best['test_perplexity']:.2f})")
         
-        print(f"\n💡 Note: Lower perplexity = better, but generation quality also matters.")
+        print(f"\n Note: Lower perplexity = better, but generation quality also matters.")
     
     def save_results(self):
         """Save results to JSON and samples to TXT."""

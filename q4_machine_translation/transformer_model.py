@@ -18,7 +18,7 @@ from config import DEVICE
 class TransformerMT:
     """
     Transformer-based machine translation using T5.
-    T5 uses HuggingFace tokenizers (no sentencepiece needed on Windows).
+    T5 uses HuggingFace tokenizers .
     """
     
     def __init__(self, model_name: str = "t5-small",

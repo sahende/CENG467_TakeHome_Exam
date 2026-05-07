@@ -194,11 +194,11 @@ class NERErrorAnalyzer:
         report.append(f"  Total true entities:    {boundary['total_true_entities']}")
         report.append(f"  Total predicted entities: {boundary['total_pred_entities']}")
         report.append(f"")
-        report.append(f"  ✓ Exact matches:          {boundary['exact_matches']} ({boundary.get('exact_match_rate', 0):.1%})")
-        report.append(f"  ⚠ Right type, wrong span: {boundary['right_type_wrong_boundary']} ({boundary.get('boundary_error_rate', 0):.1%})")
-        report.append(f"  ⚠ Partial matches (wrong type): {boundary['partial_matches']}")
-        report.append(f"  ✗ Missed entities:        {boundary['missed_entities']} ({boundary.get('miss_rate', 0):.1%})")
-        report.append(f"  ✗ Extra (hallucinated):   {boundary['extra_entities']}")
+        report.append(f"   Exact matches:          {boundary['exact_matches']} ({boundary.get('exact_match_rate', 0):.1%})")
+        report.append(f"   Right type, wrong span: {boundary['right_type_wrong_boundary']} ({boundary.get('boundary_error_rate', 0):.1%})")
+        report.append(f"   Partial matches (wrong type): {boundary['partial_matches']}")
+        report.append(f"   Missed entities:        {boundary['missed_entities']} ({boundary.get('miss_rate', 0):.1%})")
+        report.append(f"   Extra (hallucinated):   {boundary['extra_entities']}")
         
         if boundary['boundary_error_examples']:
             report.append(f"\n  Boundary Error Examples:")
@@ -321,7 +321,7 @@ def main():
     preds_file = os.path.join(RESULTS_DIR, 'q2_predictions.json')
     
     if not os.path.exists(preds_file):
-        print(f"❌ No predictions found at {preds_file}")
+        print(f" No predictions found at {preds_file}")
         print("   Run train.py first to generate predictions.")
         return
     
@@ -426,8 +426,8 @@ def main():
     
     with open(combined_path, 'w') as f:
         json.dump(convert(all_analyses), f, indent=4)
-    print(f"\n✓ Combined analysis saved to {combined_path}")
-    
+    print(f"\n Combined analysis saved to {combined_path}")
+
     # Generate plots
     for model_name, analysis in all_analyses.items():
         cm_path = os.path.join(RESULTS_DIR, f'q2_confusion_matrix_{model_name}.png')

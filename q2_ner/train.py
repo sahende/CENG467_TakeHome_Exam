@@ -40,7 +40,7 @@ class NERExperiment:
         self.results = {}
         self.all_predictions = {}
         
-        # BIO etiketlerini oluştur (dataset'te yok, biz üretiyoruz)
+        # Create BIO tags 
         print("Preparing BIO tags from NER tags...")
         self._prepare_bio_tags()
     
@@ -51,7 +51,6 @@ class NERExperiment:
             for ner_tags in self.dataset[split]['ner_tags']:
                 bio = [self.bio_tagger.id_to_tag.get(t, 'O') for t in ner_tags]
                 bio_tags_list.append(bio)
-            # Dataset'e yeni sütun olarak ekle
             self.dataset[split] = self.dataset[split].add_column('bio_tags', bio_tags_list)
         
         print(f"✓ BIO tags created for all splits")
